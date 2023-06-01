@@ -1,0 +1,42 @@
+{
+  "name": "postgres-helper",
+  "version": "0.0.1",
+  "description": "All-in-one Node.js PostgreSQL module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "postgres-helper": "bin.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelDietz/postgres-helper.git"
+  },
+  "keywords": [
+    "postgres",
+    "sql",
+    "migration",
+    "typescript"
+  ],
+  "author": "Samuel Dietz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SamuelDietz/postgres-helper/issues"
+  },
+  "homepage": "https://github.com/SamuelDietz/postgres-helper#readme",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "kanel": "^3.3.1"
+  },
+  "dependencies": {
+    "kleur": "^4.1.0",
+    "mk-dirs": "^3.0.0",
+    "postgres": "^3.3.4",
+    "sade": "^1.7.0",
+    "totalist": "^2.0.0",
+    "typescript": "^5.0.4"
+  }
+}
