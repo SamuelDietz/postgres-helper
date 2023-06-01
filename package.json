@@ -1,6 +1,6 @@
 {
   "name": "postgres-helper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "All-in-one Node.js PostgreSQL module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -28,10 +28,10 @@
   },
   "homepage": "https://github.com/SamuelDietz/postgres-helper#readme",
   "devDependencies": {
-    "@types/node": "^20.2.5",
-    "kanel": "^3.3.1"
+    "@types/node": "^20.2.5"
   },
   "dependencies": {
+    "kanel": "^3.3.1",
     "kleur": "^4.1.0",
     "mk-dirs": "^3.0.0",
     "postgres": "^3.3.4",
