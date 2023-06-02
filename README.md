@@ -15,10 +15,10 @@ This module acts as a convenient wrapper around the [postgres](https://github.co
 Simply import `sql` to use it everywhere:
 
 ```js
-import sql from 'postgres-helper';
+import sql from "postgres-helper";
 
-async function getPeopleOver(age){
-   return await sql`SELECT * FROM person WHERE age > ${age}`;
+async function getPeopleOver(age) {
+  return await sql`SELECT * FROM person WHERE age > ${age}`;
 }
 ```
 
@@ -27,11 +27,13 @@ No annoying ORM syntax, no need to manually escape your values. Just write your 
 If you [setup](#setup) the module to use TypeScript, you can utilize the automatically [generated types](#type-generation) from the [migration system](#migrations) to specify the return type of your queries.
 
 ```ts
-import Person from 'postgres-helper/types/public/Person';
+import Person from "postgres-helper/types/public/Person";
 
 async function insertPerson(name: string, age: number): Promise<Person> {
-   const newPerson = await sql<Person[]>`INSERT INTO person (name, age) VALUES (${name}, ${age}) RETURNING *`;
-   return newPerson[0];
+  const newPerson = await sql<
+    Person[]
+  >`INSERT INTO person (name, age) VALUES (${name}, ${age}) RETURNING *`;
+  return newPerson[0];
 }
 ```
 
@@ -87,7 +89,7 @@ npx postgres-helper --help
 
 ## Type generation
 
-If the `outputPath` is set correctly in your [configuration](#configuration), *postgres-helper* will automatically introspect the database and generate types for you after each migration. The generated types will reflect the current state of your database (not only the content of your migrations).
+If the `outputPath` is set correctly in your [configuration](#configuration), _postgres-helper_ will automatically introspect the database and generate types for you after each migration. The generated types will reflect the current state of your database (not only the content of your migrations).
 
 As the generated types are overwritten after each migration, you should not edit them in the `outputPath` directory.
 
@@ -96,6 +98,7 @@ If you need to go in-depth with the generated types, you can refer to the [kanel
 ## Setup
 
 1. Install the package:
+
    ```bash
    npm install postgres-helper
    ```
@@ -115,14 +118,14 @@ The `phconfig.js` file looks like this:
 ```js
 module.exports = {
   connection: {
-    host: 'localhost',
+    host: "localhost",
     port: 5432,
-    database: 'database',
-    username: 'username',
-    password: 'password',
+    database: "database",
+    username: "username",
+    password: "password",
   },
-  migrationPath: './postgres-helper/migrations',
-  outputPath: './postgres-helper/types',
+  migrationPath: "./postgres-helper/migrations",
+  outputPath: "./postgres-helper/types",
 };
 ```
 
@@ -130,7 +133,7 @@ The `connection` object needs to match your database configuration. The default 
 
 The `migrationPath` is the path to the directory where your migration files are stored. Just keep the default. Please.
 
-The `outputPath` is the path to the directory where the generated types are stored. If you didn't set the `--typescript` flag when running the initialization command, this line won't exist in your config and *postgres-helper* will not [generate types](#type-generation) for you.
+The `outputPath` is the path to the directory where the generated types are stored. If you didn't set the `--typescript` flag when running the initialization command, this line won't exist in your config and _postgres-helper_ will not [generate types](#type-generation) for you.
 
 ## Thanks
 
