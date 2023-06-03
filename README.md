@@ -22,7 +22,7 @@ async function getPeopleOver(age) {
 }
 ```
 
-No annoying ORM syntax, no need to manually escape your values. Just write your queries.
+No annoying ORM syntax, no need to manually escape your values. Just [write your queries](#building-queries).
 
 If you [setup](#setup) the module to use TypeScript, you can utilize the automatically [generated types](#type-generation) from the [migration system](#migrations) to specify the return type of your queries.
 
@@ -36,6 +36,88 @@ async function insertPerson(name: string, age: number): Promise<Person> {
   return newPerson[0];
 }
 ```
+
+## Building queries
+
+The simple dynamic query builder conditionally appends/omits query fragments. It works by nesting ` sql`` ` fragments within other ` sql`` ` calls or fragments. This allows you to build dynamic queries safely without risking sql injections through usual string concatenation.
+
+### Partial queries
+```js
+const olderThan = x => sql`and age > ${ x }`
+
+const filterAge = true
+
+sql`
+  select
+   *
+  from users
+  where name is not null ${
+    filterAge
+      ? olderThan(50)
+      : sql``
+  }
+`
+// Which results in:
+select * from users where name is not null
+// Or
+select * from users where name is not null and age > 50
+```
+
+### Dynamic filters
+```js
+sql`
+  select
+    *
+  from users ${
+    id
+      ? sql`where user_id = ${ id }`
+      : sql``
+  }
+`
+
+// Which results in:
+select * from users
+// Or
+select * from users where user_id = $1
+```
+
+### SQL functions
+Using keywords or calling functions dynamically is also possible by using ``` sql`` ``` fragments.
+```js
+const date = null
+
+sql`
+  update users set updated_at = ${ date || sql`now()` }
+`
+
+// Which results in:
+update users set updated_at = now()
+```
+
+### Table names
+Dynamic identifiers like table names and column names is also supported like so:
+```js
+const table = 'users'
+    , column = 'id'
+
+sql`
+  select ${ sql(column) } from ${ sql(table) }
+`
+
+// Which results in:
+select "id" from "users"
+```
+
+### Quick primer on interpolation
+
+Here's a quick oversight over all the ways to do interpolation in a query template string:
+
+| Interpolation syntax       | Usage                         | Example                                                   |
+| -------------              | -------------                 | -------------                                             |
+| `${ sql`` }`               | for keywords or sql fragments | ``sql`SELECT * FROM users ${sql`order by age desc` }` ``  |
+| `${ sql(string) }`         | for identifiers               | ``sql`SELECT * FROM ${sql('table_name')` ``               |
+| `${ sql([] or {}, ...) }`  | for helpers                   | ``sql`INSERT INTO users ${sql({ name: 'Peter'})}` ``      |
+| `${ 'somevalue' }`         | for values                    | ``sql`SELECT * FROM users WHERE age = ${42}` ``           |
 
 For more information on how to use the `sql` function, check out the [postgres documentation](https://github.com/porsager/postgres#queries).
 
@@ -93,9 +175,7 @@ If the `outputPath` is set correctly in your [configuration](#configuration), _p
 
 As the generated types are overwritten after each migration, you should not edit them in the `outputPath` directory.
 
-### Manual generation
-
-If you want to generate the types independently of the migrations, you can run:
+To generate types independently of migrations, you can run:
 
 ```bash
 npx postgres-helper typegen
