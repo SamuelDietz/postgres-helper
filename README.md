@@ -37,7 +37,7 @@ async function insertPerson(name: string, age: number): Promise<Person> {
 }
 ```
 
-## Building queries
+## Query building features
 
 The simple dynamic query builder conditionally appends/omits query fragments. It works by nesting ` sql`` ` fragments within other ` sql`` ` calls or fragments. This allows you to build dynamic queries safely without risking sql injections through usual string concatenation.
 
