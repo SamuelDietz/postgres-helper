@@ -93,6 +93,14 @@ If the `outputPath` is set correctly in your [configuration](#configuration), _p
 
 As the generated types are overwritten after each migration, you should not edit them in the `outputPath` directory.
 
+### Manual generation
+
+If you want to generate the types independently of the migrations, you can run:
+
+```bash
+npx postgres-helper typegen
+```
+
 If you need to go in-depth with the generated types, you can refer to the [kanel documentation](https://kristiandupont.github.io/kanel).
 
 ## Setup

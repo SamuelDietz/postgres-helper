@@ -198,3 +198,22 @@ exports.new = async function (opts = {}) {
 
   return filename;
 };
+
+exports.typegen = async function (opts = {}) {
+  let { outputPath } = await parse(opts);
+
+  if (outputPath) {
+    try {
+      const { processDatabase } = require("kanel");
+      const kanelConfig = require("./.kanelrc.js");
+      await processDatabase(kanelConfig);
+      return [
+        "Type generation complete",
+      ];
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    throw new Error("If you want to generate types, please specify an outputPath in phconfig.js");
+  }
+};

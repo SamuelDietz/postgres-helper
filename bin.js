@@ -44,4 +44,8 @@ sade("postgres-helper")
     return wrap("new")(opts);
   })
 
+  .command("typegen")
+  .describe("Introspect the database and generate TypeScript types in outputPath")
+  .action(wrap("typegen"))
+
   .parse(process.argv);
