@@ -36,7 +36,7 @@
     "mk-dirs": "^3.0.0",
     "postgres": "^3.3.4",
     "sade": "^1.7.0",
-    "totalist": "^2.0.0",
+    "totalist": "^3.0.1",
     "typescript": "^5.0.4"
   }
 }
