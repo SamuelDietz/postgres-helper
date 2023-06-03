@@ -1,18 +1,20 @@
 # postgres-helper
 
+![npm](https://img.shields.io/npm/v/postgres-helper)
+![npm](https://img.shields.io/npm/dt/postgres-helper)
+![GitHub](https://img.shields.io/github/license/SamuelDietz/postgres-helper)
+
 The all-in-one postgres module for SQL enjoyers.
 
 ### Features
 
-This module acts as a convenient wrapper around the [postgres](https://github.com/porsager/postgres) and [kanel](https://github.com/kristiandupont/kanel) packages, while also stealing some code from [ley](https://github.com/lukeed/ley). It offers a seamless integration of their functionalities:
-
-- [Simplified SQL query execution](#queries) using ES6 Tagged Template Strings with enforced safety
-- [Migration solution](#migrations) built on top of the Tagged Template Strings
-- [Type generation](#type-generation) automatically after migrations
+- Simple and safe SQL queries with the [postgres](https://github.com/porsager/postgres) client
+- Easy database management with the inbuilt migration system
+- (For TypeScript users): Automatic type generation using [kanel](https://github.com/kristiandupont/kanel)
 
 ## Queries
 
-Simply import `sql` to use it everywhere:
+After [setting up the database connection](#setup), simply import `sql` to use it everywhere:
 
 ```js
 import sql from "postgres-helper";
@@ -22,9 +24,7 @@ async function getPeopleOver(age) {
 }
 ```
 
-No annoying ORM syntax, no need to manually escape your values. Just [write your queries](#building-queries).
-
-If you [setup](#setup) the module to use TypeScript, you can utilize the automatically [generated types](#type-generation) from the [migration system](#migrations) to specify the return type of your queries.
+If you use TypeScript, you can utilize the automatically [generated types](#type-generation) from the [migration system](#migrations) to specify the return type of your queries:
 
 ```ts
 import Person from "postgres-helper/types/public/Person";
@@ -119,7 +119,7 @@ Here's a quick oversight over all the ways to do interpolation in a query templa
 | `${ sql([] or {}, ...) }`  | for helpers                   | ``sql`INSERT INTO users ${sql({ name: 'Peter'})}` ``      |
 | `${ 'somevalue' }`         | for values                    | ``sql`SELECT * FROM users WHERE age = ${42}` ``           |
 
-For more information on how to use the `sql` function, check out the [postgres documentation](https://github.com/porsager/postgres#queries).
+For the full documentation on how to use the `sql` function, check out the [postgres docs](https://github.com/porsager/postgres#queries).
 
 ## Migrations
 
@@ -131,7 +131,7 @@ Creating a migration:
 npx postgres-helper new <migration-name>
 ```
 
-The generated migration file will look like this, allowing you to migrate with the syntax you already know from your [queries](#queries) (`sql` is available out of the box in migration files):
+The generated migration file will look like this, allowing you to migrate with the syntax you already know from your [queries](#queries) (`sql` is available out of the box in migration files, no need to import it):
 
 ```js
 exports.up = async (sql) => {
@@ -225,4 +225,4 @@ The `outputPath` is the path to the directory where the generated types are stor
 
 ## Thanks
 
-To all the original package authors.
+To the authors of the [postgres](https://github.com/porsager/postgres), [kanel](https://github.com/kristiandupont/kanel) and [ley](https://github.com/lukeed/ley) packages on which this module is built.
