@@ -1,6 +1,6 @@
 {
   "name": "postgres-helper",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "All-in-one Node.js PostgreSQL module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
