@@ -30,7 +30,7 @@
   "homepage": "https://github.com/SamuelDietz/postgres-helper#readme",
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "release-it": "^15.10.5"
+    "release-it": "^16.0.0"
   },
   "dependencies": {
     "kanel": "^3.3.1",
