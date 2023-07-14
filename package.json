@@ -10,7 +10,6 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -29,8 +28,7 @@
   },
   "homepage": "https://github.com/SamuelDietz/postgres-helper#readme",
   "devDependencies": {
-    "@types/node": "^20.2.5",
-    "release-it": "^16.1.0"
+    "@types/node": "^20.2.5"
   },
   "dependencies": {
     "kanel": "^3.3.1",
